@@ -9,24 +9,32 @@ let arrayLibrary = {
             arrayToReturn: [],
 
             take(num) {
-                this.arrayToReturn = array;
+                let innerArray = [];
                 if (this.arrayToReturn.length < num) {
                     return this.error;
                 }
 
                 for (let i = 0; i < num; i++) {
-                    this.arrayToReturn[i] = array[i];
+                    innerArray[i] = this.arrayToReturn[i];
                 }
+
+                this.arrayToReturn = [];
+                for (let i = 0; i < num; i++) {
+                    this.arrayToReturn[i] = innerArray[i];
+                }
+
                 return this;
             },
 
             skip(num) {
-                if (this.arrayToReturn.length < num) {
+                this.arrayToReturn = array;
+                if (array.length < num) {
                     return this.error;
                 }
 
+                this.arrayToReturn = [];
                 let j = 0;
-                for (let i = num; i < this.arrayToReturn.length; i++) {
+                for (let i = num; i < array.length; i++) {
                     this.arrayToReturn[j] = array[i];
                     j++;
                 }
@@ -34,7 +42,7 @@ let arrayLibrary = {
             },
 
             getValue() {
-                return this;
+                return this.arrayToReturn;
             }
         }
     },
@@ -127,4 +135,4 @@ console.log("Filter: " + arrayLibrary.filter(array, (a) => { return a > 3 }));
 console.log("");
 
 arrayLibrary.foreach(array, (a) => { console.log(`Я - число ${a} из foreach плюс 10 = ` + (a + 10)); });
-console.log(arrayLibrary.chain(array).take(4).getValue());
+console.log(arrayLibrary.chain(array).skip(4).take(3).getValue());
