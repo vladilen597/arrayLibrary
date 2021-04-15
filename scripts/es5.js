@@ -1,61 +1,69 @@
-function arrayLibrary() {
+let arrayLibrary = function() {
     let error = "Handling error. Check the inputs.";
     let arrayToReturn = [];
+    let arrayFunction = [];
 
+    function chain(array) {
+        arrayFunction = array;
+        return this;
+    }
 
-    function take(array, n) { // Берет из входного массива элементы до n 
-        if (array.length < n) {
+    function take(n) { // Берет из входного массива элементы до n 
+        if (arrayFunction.length < n) {
             return error;
         }
 
         for (let i = 0; i < n; i++) {
-            arrayToReturn[i] = array[i];
+            arrayToReturn[i] = arrayFunction[i];
         }
-        return arrayToReturn;
+        arrayFunction = arrayToReturn;
+
+        return this;
     };
 
-    function skip(array, n) { // Пропускает элементы до n
-        arrayToReturn = [];
-        if (array.length < n) {
+    function skip(n) { // Пропускает элементы до n
+        let arrayToReturn = [];
+        if (arrayFunction.length < n) {
             return error;
         }
 
         let j = 0;
-        for (let i = n; i < array.length; i++) {
-            arrayToReturn[j] = array[i]
+        for (let i = n; i < arrayFunction.length; i++) {
+            arrayToReturn[j] = arrayFunction[i];
             j++;
         }
-        return arrayToReturn;
+        arrayFunction = arrayToReturn;
+        return this;
     };
 
-    function map(array, callback) { // Обработка массива введенной функцией
+    function map(callback) { // Обработка массива введенной функцией
         let arrayToReturn = [];
 
-        for (let i = 0; i < array.length; i++) {
-            let response = callback(array[i], i, array);
+        for (let i = 0; i < arrayFunction.length; i++) {
+            let response = callback(arrayFunction[i], i, arrayFunction);
             arrayToReturn.push(response);
         }
-        return arrayToReturn;
+        return this;
     };
 
-    function reduce(array, callback, initialValue = 0) {
+    function reduce(callback, initialValue = 0) {
         let total = initialValue;
 
         if (initialValue == 0) {
-            total = array.shift();
+            total = arrayFunction.shift();
         }
 
-        for (let i = 0; i < array.length; i++) {
-            total = callback(total, array[i]);
+        for (let i = 0; i < arrayFunction.length; i++) {
+            total = callback(total, arrayFunction[i]);
         }
         return total;
     };
 
-    function filter(array, callback) { // Возвращает новый массив из указанного условия
+    function filter(callback) { // Возвращает новый массив из указанного условия
         let newArray = [];
 
-        for (let i = 0; i < array.length; i++) {
-            let response = callback(array[i], i, array);
+        for (let i = 0; i < arrayFunction.length; i++) {
+            let response = callback(arrayFunction[i], i, arrayFunction);
             if (response == true) {
                 newArray.push(array[i]);
             }
@@ -63,14 +71,18 @@ function arrayLibrary() {
         return newArray;
     };
 
-    function foreach(array, callback) {
+    function foreach(callback) {
         let response;
 
-        for (let i = 0; i < array.length; i++) {
-            response = callback(array[i], i, array);
+        for (let i = 0; i < arrayFunction.length; i++) {
+            response = callback(arrayFunction[i], i, arrayFunction);
         }
-        return response;
+        return this;
     };
+
+    function getValue() {
+        console.log(arrayFunction);
+    }
 
     return {
         take: take,
@@ -78,22 +90,16 @@ function arrayLibrary() {
         map: map,
         reduce: reduce,
         filter: filter,
-        foreach: foreach
+        foreach: foreach,
+        chain: chain,
+        getValue: getValue
     }
+
 }
 
-// console.log("Take: " + arrayLibrary.take(array, n));
-// console.log("Skip: " + arrayLibrary.skip(array, n));
-// console.log("Map: " + arrayLibrary.map(array, (a) => { return a * 2 }));
-// console.log("Reduce: " + arrayLibrary.reduce(array, (a, b) => { return (a += b) }, 5));
-// console.log("Filter: " + arrayLibrary.filter(array, (a) => { return a > 3 }));
-// arrayLibrary.foreach(array, (a) => { console.log(`Я - число ${a} из foreach плюс 10 = ` + (a + 10)); });
-
-
-
-let array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let n = 3;
 
 let arrayLib = new arrayLibrary();
 
-arrayLib.reduce(array, (a, b) => { return console.log(a += b) });
+arrayLib.chain(array1).take(8).skip(2).map(a => { console.log(a += 10) }).getValue();
