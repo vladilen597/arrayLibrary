@@ -88,8 +88,4 @@ class ArrayLibraryClass {
     }
 }
 
-// let arrayClass = [9, 8, 7, 6, 5, 4, 3, 2, 1];
-// let arrLib = new ArrayLibrary();
-// arrLib.chain(arrayClass).take(6).skip(2).filter(a => { return a < 7 }).getValue();
-
 module.exports = ArrayLibraryClass;

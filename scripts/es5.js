@@ -99,11 +99,6 @@ let arrayLibrary = function() {
         chain: chain,
         getValue: getValue
     }
-
 }
-
-// let array1 = [1, 3, 5, 7, 9];
-// let arrayLib = new arrayLibrary();
-// arrayLib.chain(array1).foreach(a => { return a += 5 }).getValue();
 
 module.exports = arrayLibrary;
