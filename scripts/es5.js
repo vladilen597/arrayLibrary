@@ -82,6 +82,7 @@ let arrayLibrary = function() {
 
     function getValue() {
         console.log(arrayFunction);
+        return arrayFunction;
     }
 
     return {
@@ -98,8 +99,8 @@ let arrayLibrary = function() {
 }
 
 let array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let n = 3;
-
 let arrayLib = new arrayLibrary();
 
-arrayLib.chain(array1).take(8).skip(2).map(a => { console.log(a += 10) }).getValue();
+// arrayLib.chain(array1).take(8).skip(2).map(a => { console.log(a += 10) }).getValue();
+
+module.exports = arrayLibrary;
