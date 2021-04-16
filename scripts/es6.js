@@ -88,4 +88,4 @@ class ArrayLibraryClass {
     }
 }
 
-module.exports = ArrayLibraryClass;
+// module.exports = ArrayLibraryClass;

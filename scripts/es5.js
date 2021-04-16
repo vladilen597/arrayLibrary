@@ -2,22 +2,35 @@ let arrayLibrary = function() {
     let error = "Handling error. Check the inputs. Maybe you're out of array";
     let arrayToReturn = [];
     let arrayFunction = [];
+    let num;
 
     function chain(array) {
-        arrayFunction = array;
-        return this;
-    }
+        // this.take(array, this.n);
+    };
+
+    // function take(n) { // Берет из входного массива элементы до n 
+    //     if (arrayFunction.length < n) {
+    //         throw error;
+    //     }
+
+    //     for (let i = 0; i < n; i++) {
+    //         arrayToReturn[i] = arrayFunction[i];
+    //     }
+    //     arrayFunction = arrayToReturn;
+    //     console.log(arrayFunction);
+    //     return arrayFunction;
+    // };
 
     function take(n) { // Берет из входного массива элементы до n 
-        if (arrayFunction.length < n) {
+        array = arguments[0];
+        if (array.length < n) {
             throw error;
         }
-
         for (let i = 0; i < n; i++) {
-            arrayToReturn[i] = arrayFunction[i];
+            arrayToReturn[i] = array[i];
         }
-        arrayFunction = arrayToReturn;
-        return this;
+        array = arrayToReturn;
+        return array;
     };
 
     function skip(n) { // Пропускает элементы до n
@@ -101,4 +114,7 @@ let arrayLibrary = function() {
     }
 }
 
-module.exports = arrayLibrary;
+const lib = arrayLibrary();
+let arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(lib.take(arr, 6));
+// module.exports = arrayLibrary;
