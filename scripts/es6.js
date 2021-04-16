@@ -1,7 +1,9 @@
-class ArrayLibrary {
-    constructor(array) {
+class ArrayLibraryClass {
+    constructor() {}
+
+    chain(array) {
         this.array = array;
-        this.error = "Handling error. Check the inputs.";
+        return this;
     }
 
     take(n) { // Берет из входного массива элементы до n 
@@ -39,6 +41,7 @@ class ArrayLibrary {
             let response = callback(this.array[i], i, this.array);
             arrayToReturn.push(response);
         }
+        this.array = arrayToReturn;
         return this;
     };
 
@@ -52,6 +55,7 @@ class ArrayLibrary {
         for (let i = 0; i < this.array.length; i++) {
             total = callback(total, this.array[i]);
         }
+        this.array = total;
         return this;
     };
 
@@ -64,30 +68,28 @@ class ArrayLibrary {
                 newArray.push(this.array[i]);
             }
         }
+        this.array = newArray;
         return this;
     };
 
     foreach(callback) {
-        let response;
+        let response = [];
 
         for (let i = 0; i < this.array.length; i++) {
-            response = callback(this.array[i], i, this.array);
+            response[i] = callback(this.array[i], i, this.array);
         }
+        this.array = response;
         return this;
     };
 
-    chain() {
-        return this;
-    }
-
     getValue() {
         console.log(this.array);
+        return this.array;
     }
 }
 
-let arrayClass = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+// let arrayClass = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+// let arrLib = new ArrayLibrary();
+// arrLib.chain(arrayClass).take(6).skip(2).filter(a => { return a < 7 }).getValue();
 
-let arrLib = new ArrayLibrary(arrayClass);
-
-
-arrLib.chain().take(6).skip(2).map(a => { a += 1 }).getValue();
+module.exports = ArrayLibraryClass;
