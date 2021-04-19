@@ -3,7 +3,8 @@ class ArrayLibraryClass {
 
     chain(array) {
         this.array = array;
-        return this;
+
+        return {};
     }
 
     take(n) { // Берет из входного массива элементы до n 

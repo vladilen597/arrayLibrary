@@ -3,40 +3,46 @@ const ArrayLibraryClass = require('../scripts/es6');
 
 // ES5 TESTS //
 
-test('Array library ES5 chain take test', () => {
+test('Array library ES5 take test', () => {
     array = [1, 3, 5, 7, 9];
-    let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).take(2).getValue()).toEqual([1, 3]);
+    const arrayLib = arrayLibrary();
+    expect(arrayLib.take(array, 2)).toEqual([1, 3]);
 });
 
-test('Array library ES5 chain skip test', () => {
+test('Array library ES5 skip test', () => {
     array = [1, 3, 5, 7, 9];
     let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).skip(3).getValue()).toEqual([7, 9]);
+    expect(arrayLib.skip(array, 3)).toEqual([7, 9]);
 });
 
-test('Array library ES5 chain map test', () => {
+test('Array library ES5 map test', () => {
     array = [1, 3, 5, 7, 9];
     let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).map(a => { return a += 1 }).getValue()).toEqual([2, 4, 6, 8, 10]);
+    expect(arrayLib.map(array, a => { return a += 1 })).toEqual([2, 4, 6, 8, 10]);
 });
 
-test('Array library ES5 chain reduce test', () => {
+test('Array library ES5 reduce test', () => {
     array = [1, 3, 5, 7, 9];
     let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).reduce((a, b) => { return a += b }).getValue()).toBe(25);
+    expect(arrayLib.reduce(array, (a, b) => { return a += b })).toBe(25);
 });
 
-test('Array library ES5 chain filter test', () => {
+test('Array library ES5 filter test', () => {
     array = [1, 3, 5, 7, 9];
     let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).filter(a => { return a < 5 }).getValue()).toEqual([1, 3]);
+    expect(arrayLib.filter(array, a => { return a < 5 })).toEqual([1, 3]);
 });
 
-test('Array library ES5 chain forEach test', () => {
+test('Array library ES5 forEach test', () => {
     array = [1, 3, 5, 7, 9];
     let arrayLib = arrayLibrary();
-    expect(arrayLib.chain(array).foreach(a => { return a += 5 }).getValue()).toEqual([6, 8, 10, 12, 14]);
+    expect(arrayLib.foreach(array, a => { return a += 5 })).toEqual([6, 8, 10, 12, 14]);
+});
+
+test('Array library ES5 chain take skip test', () => {
+    array = [1, 3, 5, 7, 9, 11, 13, 15];
+    let arrayLib = arrayLibrary();
+    expect(arrayLib.chain(array).take(5).skip(2).getValue()).toEqual([5, 7, 9]);
 });
 
 // ES5 TESTS END //
