@@ -1,37 +1,51 @@
 let arrayLibrary = function() {
-    let error = "Handling error. Check the inputs. Maybe you're out of array";
+    let error = `Handling error. Check the inputs. Maybe you're out of array`;
     let arrayToReturn = [];
-    let arrayFunction = [];
-    let chainArray = [];
-    let num;
+    let arrayResult = [];
 
     function chain(array) {
-        let arrResult = array;
         return {
             take: function(n) {
-                chainArray.push(take(arrResult, n));
+                array = take(array, n);
                 return this;
             },
             skip: function(n) {
-                chainArray.push(skip(arrResult, n));
+                array = skip(array, n);
+                return this;
+            },
+            map: function(callback) {
+                array = map(array, callback);
+                return this;
+            },
+            reduce: function(callback, initialValue = 0) {
+                array = reduce(array, callback, initialValue);
+                return this;
+            },
+            filter: function(callback) {
+                array = filter(array, callback);
+                return this;
+            },
+            foreach: function(callback) {
+                array = foreach(array, callback);
                 return this;
             },
             getValue: function() {
-                console.log(chainArray);
+                console.log(array);
+                return array;
             }
         };
     };
 
     function take(array, n) { // Берет из входного массива элементы до n
-        arrayFunction = array;
-        if (array.length < n) {
+        arrayResult = array;
+        if (arrayResult.length < n) {
             throw error;
         }
         for (let i = 0; i < n; i++) {
-            arrayToReturn[i] = array[i];
+            arrayToReturn[i] = arrayResult[i];
         }
-        array = arrayToReturn;
-        return array;
+        arrayResult = arrayToReturn;
+        return arrayResult;
     };
 
     function skip(array, n) { // Пропускает элементы до n
@@ -73,17 +87,17 @@ let arrayLibrary = function() {
     };
 
     function filter(array, callback) { // Возвращает новый массив из указанного условия
-        arrayFunction = array;
+        arrayResult = array;
         let newArray = [];
 
-        for (let i = 0; i < arrayFunction.length; i++) {
-            let response = callback(arrayFunction[i], i, arrayFunction);
+        for (let i = 0; i < arrayResult.length; i++) {
+            let response = callback(arrayResult[i], i, arrayResult);
             if (response == true) {
-                newArray.push(arrayFunction[i]);
+                newArray.push(arrayResult[i]);
             }
         }
-        arrayFunction = newArray;
-        return arrayFunction;
+        arrayResult = newArray;
+        return arrayResult;
     };
 
     function foreach(array, callback) {
@@ -106,6 +120,4 @@ let arrayLibrary = function() {
     }
 }
 
-const lib = arrayLibrary();
-let arr = [1, 2, 3, 4, 5, 6, 7];
-lib.chain(arr).take(3).skip(1).getValue();
+module.exports = arrayLibrary;
