@@ -39,9 +39,11 @@ let arrayLibrary = function() {
         if (array.length < n) {
             throw error;
         }
+
         for (let i = 0; i < n; i++) {
             arrayResult[i] = array[i];
         }
+
         array = arrayResult;
         return array;
     };
@@ -57,6 +59,7 @@ let arrayLibrary = function() {
             arrayToReturn[j] = array[i];
             j++;
         }
+
         array = arrayToReturn;
         return array;
     };
