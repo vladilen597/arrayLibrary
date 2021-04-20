@@ -35,3 +35,9 @@ test('Array library ES6 forEach test', () => {
     const arrayLib = new ArrayLibraryClass();
     expect(arrayLib.foreach(array, a => { return a -= 5 })).toEqual([4, 2, 0, -2, -4]);
 });
+
+test('Array library ES6 chain test', () => {
+    array = [9, 7, 5, 3, 1];
+    const arrayLib = new ArrayLibraryClass();
+    expect(arrayLib.chain(array).take(3).skip(1).getValue()).toEqual([7, 5]);
+});

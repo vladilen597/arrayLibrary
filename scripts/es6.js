@@ -84,35 +84,35 @@ class ArrayLibrary {
 class ChainArrayLibrary {
     constructor(array) {
         this.array = array;
-        this.classLink = new ArrayLibrary;
+        this.arrayLibrary = new ArrayLibrary;
     }
     take(n) {
-        this.array = this.classLink.take(this.array, n);
+        this.array = this.arrayLibrary.take(this.array, n);
         return this;
     }
 
     skip(n) {
-        this.array = this.classLink.skip(this.array, n);
+        this.array = this.arrayLibrary.skip(this.array, n);
         return this;
     }
 
     map(callback) {
-        this.array = this.classLink.map(this.array, callback);
+        this.array = this.arrayLibrary.map(this.array, callback);
         return this;
     }
 
     reduce(callback, initialValue = 0) {
-        this.array = this.classLink.reduce(this.array, callback, initialValue);
+        this.array = this.arrayLibrary.reduce(this.array, callback, initialValue);
         return this;
     }
 
     filter(callback) {
-        this.array = this.classLink.filter(this.array, callback);
+        this.array = this.arrayLibrary.filter(this.array, callback);
         return this;
     }
 
     foreach(callback) {
-        this.array = this.classLink.filter(this.array, callback);
+        this.array = this.arrayLibrary.filter(this.array, callback);
         return this;
     }
 
@@ -120,6 +120,6 @@ class ChainArrayLibrary {
         console.log(this.array);
         return this.array;
     }
-}
+};
 
 module.exports = ArrayLibrary;
