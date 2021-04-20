@@ -1,7 +1,5 @@
 let arrayLibrary = function() {
     let error = `Handling error. Check the inputs. Maybe you're out of array`;
-    let arrayToReturn = [];
-    let arrayResult = [];
 
     function chain(array) {
         return {
@@ -37,15 +35,15 @@ let arrayLibrary = function() {
     };
 
     function take(array, n) { // Берет из входного массива элементы до n
-        arrayResult = array;
-        if (arrayResult.length < n) {
+        let arrayResult = [];
+        if (array.length < n) {
             throw error;
         }
         for (let i = 0; i < n; i++) {
-            arrayToReturn[i] = arrayResult[i];
+            arrayResult[i] = array[i];
         }
-        arrayResult = arrayToReturn;
-        return arrayResult;
+        array = arrayResult;
+        return array;
     };
 
     function skip(array, n) { // Пропускает элементы до n
@@ -64,13 +62,13 @@ let arrayLibrary = function() {
     };
 
     function map(array, callback) { // Обработка массива введенной функцией
-        let arrayToReturn = [];
+        let arrayResult = [];
 
         for (let i = 0; i < array.length; i++) {
             let response = callback(array[i], i, array);
-            arrayToReturn.push(response);
+            arrayResult.push(response);
         }
-        return arrayToReturn;
+        return arrayResult;
     };
 
     function reduce(array, callback, initialValue = 0) {
@@ -87,7 +85,7 @@ let arrayLibrary = function() {
     };
 
     function filter(array, callback) { // Возвращает новый массив из указанного условия
-        arrayResult = array;
+        let arrayResult = array;
         let newArray = [];
 
         for (let i = 0; i < arrayResult.length; i++) {

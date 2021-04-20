@@ -1,4 +1,4 @@
-class ArrayLibraryClass {
+class ArrayLibrary {
     constructor(array) {
         this.array = array;
         this.error = `Handling error. Check the inputs. Maybe you're out of array`;
@@ -6,37 +6,10 @@ class ArrayLibraryClass {
     }
 
     chain(array) {
-        return {
-            take: function(n) {
-                array = self.take(array, n);
-                return this;
-            },
-            skip: function(n) {
-                array = self.skip(array, n);
-                return this;
-            },
-            map: function(callback) {
-                array = self.map(array, callback);
-                return this;
-            },
-            reduce: function(callback, initialValue = 0) {
-                array = self.reduce(array, callback, initialValue);
-                return this;
-            },
-            filter: function(callback) {
-                array = self.filter(array, callback);
-                return this;
-            },
-            foreach: function(callback) {
-                array = self.foreach(array, callback);
-                return this;
-            },
-            getValue: function() {
-                console.log(self.array);
-                return this;
-            }
-        }
+        return new ChainArrayLibrary(array);
     }
+
+
 
     take(array, n) { // Берет из входного массива элементы до n 
         let arrayToReturn = [];
@@ -115,4 +88,51 @@ class ArrayLibraryClass {
     };
 }
 
-module.exports = ArrayLibraryClass;
+
+class ChainArrayLibrary {
+    constructor(array) {
+        this.array = array;
+        this.classLink = new ArrayLibrary;
+    }
+    take(n) {
+        this.array = this.classLink.take(this.array, n);
+        return this;
+    }
+
+    skip(n) {
+        this.array = this.classLink.skip(this.array, n);
+        return this;
+    }
+
+    map(callback) {
+        this.array = this.classLink.map(this.array, callback);
+        return this;
+    }
+
+    reduce(callback, initialValue = 0) {
+        this.array = this.classLink.reduce(this.array, callback, initialValue);
+        return this;
+    }
+
+    filter(callback) {
+        this.array = this.classLink.filter(this.array, callback);
+        return this;
+    }
+
+    foreach(callback) {
+        this.array = this.classLink.filter(this.array, callback);
+        return this;
+    }
+
+    getValue() {
+        console.log(this.array);
+        return this.array;
+    }
+}
+
+// let arr = [1, 3, 5, 7, 9];
+// const libInstance = new ArrayLibrary;
+
+// libInstance.chain(arr).take(4).map(a => { return a += 10 }).getValue();
+
+module.exports = ArrayLibrary;
