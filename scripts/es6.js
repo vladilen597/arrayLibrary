@@ -1,20 +1,12 @@
 class ArrayLibrary {
-    constructor(array) {
-        this.array = array;
-        this.error = `Handling error. Check the inputs. Maybe you're out of array`;
-        self = this;
-    }
-
     chain(array) {
         return new ChainArrayLibrary(array);
     }
 
-
-
     take(array, n) { // Берет из входного массива элементы до n 
         let arrayToReturn = [];
         if (array.length < n) {
-            return this.error;
+            throw "Error";
         }
 
         for (let i = 0; i < n; i++) {
@@ -27,7 +19,7 @@ class ArrayLibrary {
     skip(array, n) { // Пропускает элементы до n
         let arrayToReturn = [];
         if (array.length < n) {
-            return this.error;
+            throw "Error";
         }
 
         let j = 0;
@@ -130,9 +122,9 @@ class ChainArrayLibrary {
     }
 }
 
-// let arr = [1, 3, 5, 7, 9];
-// const libInstance = new ArrayLibrary;
+let arr = [1, 3, 5, 7, 9];
+const libInstance = new ArrayLibrary;
 
-// libInstance.chain(arr).take(4).map(a => { return a += 10 }).getValue();
+console.log(libInstance.take(arr, 6));
 
 module.exports = ArrayLibrary;
